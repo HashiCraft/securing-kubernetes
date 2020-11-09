@@ -1,0 +1,46 @@
+# Service to expose the database
+apiVersion: v1
+kind: Service
+metadata:
+  name: database
+spec:
+  selector:
+    app: database
+  ports:
+  - name: http
+    protocol: TCP
+    port: 5432
+    targetPort: 5432
+
+---
+# Database
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: database
+  labels:
+    app: database
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: database
+  template:
+    metadata:
+      labels:
+        app: database
+    spec:
+      containers:
+      - name: database
+        image: nicholasjackson/fake-service:v0.9.0
+        ports:
+        - containerPort: 5432
+        env:
+        - name: "LISTEN_ADDR"
+          value: "0.0.0.0:5432"
+        - name: "NAME"
+          value: "database"
+        - name: "MESSAGE"
+          value: "SQL"
+        - name: "HTTP_CLIENT_KEEP_ALIVES"
+          value: "true"

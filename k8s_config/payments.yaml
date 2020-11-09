@@ -1,0 +1,48 @@
+# Service to expose the payments service
+apiVersion: v1
+kind: Service
+metadata:
+  name: payments
+spec:
+  selector:
+    app: payments
+  ports:
+  - name: http
+    protocol: TCP
+    port: 9090
+    targetPort: 9090
+
+---
+# Payments service
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: payments
+  labels:
+    app: payments
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: payments
+  template:
+    metadata:
+      labels:
+        app: payments
+    spec:
+      containers:
+      - name: payments
+        image: nicholasjackson/fake-service:v0.9.0
+        ports:
+        - containerPort: 9090
+        env:
+        - name: "LISTEN_ADDR"
+          value: "0.0.0.0:9090"
+        - name: "UPSTREAM_URIS"
+          value: "http://database:5432"
+        - name: "NAME"
+          value: "payments"
+        - name: "MESSAGE"
+          value: "Payment"
+        - name: "HTTP_CLIENT_KEEP_ALIVES"
+          value: "true"
