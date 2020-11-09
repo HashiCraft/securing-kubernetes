@@ -11,7 +11,7 @@ k8s_ingress "consul-http" {
   port {
     local  = 80
     remote = 80
-    host   = 80
+    host   = 8500
   }
 }
 
