@@ -31,3 +31,20 @@ k8s_ingress "vault-http" {
     host   = 8200
   }
 }
+
+k8s_ingress "search-http" {
+  cluster = "k8s_cluster.kubernetes"
+  depends_on = ["k8s_config.apps"]
+
+  network {
+    name = "network.cloud"
+  }
+
+  service  = "search"
+
+  port {
+    local  = 9090
+    remote = 9090
+    host   = 9090
+  }
+}
