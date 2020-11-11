@@ -6,7 +6,8 @@ docs "docs" {
   index_title = "Index"
   index_pages = [ 
     "index",
-    "hacking"
+    "prepare_hack",
+    "execute_hack"
   ]
 
   network {

@@ -10,7 +10,7 @@ spec:
   - name: http
     protocol: TCP
     port: 9090
-    targetPort: 9090
+    targetPort: 3000
 
 ---
 # Search service
@@ -32,17 +32,6 @@ spec:
     spec:
       containers:
       - name: search
-        image: nicholasjackson/fake-service:v0.9.0
+        image: nicholasjackson/emojify-favorites:v0.1.0
         ports:
-        - containerPort: 9090
-        env:
-        - name: "LISTEN_ADDR"
-          value: "0.0.0.0:9090"
-        - name: "UPSTREAM_URIS"
-          value: "http://database:5432"
-        - name: "NAME"
-          value: "search"
-        - name: "MESSAGE"
-          value: "Search results"
-        - name: "HTTP_CLIENT_KEEP_ALIVES"
-          value: "true"
+        - containerPort: 3000
