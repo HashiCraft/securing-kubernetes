@@ -7,7 +7,8 @@ docs "docs" {
   index_pages = [ 
     "index",
     "prepare_hack",
-    "execute_hack"
+    "execute_hack",
+    "exploit_host"
   ]
 
   network {

@@ -1,3 +1,15 @@
+# Secret that gives the application access to the database.
+apiVersion: v1
+kind: Secret
+metadata:
+  name: database
+type: Opaque
+data:
+  username: cm9vdA==
+  password: cGxlYXNlX2NoYW5nZV9tZV9iYXJyeQ==
+  database: cm9vdA==
+
+---
 # Service to expose the search service
 apiVersion: v1
 kind: Service
@@ -35,3 +47,19 @@ spec:
         image: nicholasjackson/emojify-favorites:v0.1.0
         ports:
         - containerPort: 3000
+        env:
+        - name: "DATABASE_USER"
+          valueFrom:
+            secretKeyRef:
+              name: database
+              key: username
+        - name: "DATABASE_PASSWORD"
+          valueFrom:
+            secretKeyRef:
+              name: database
+              key: password
+        - name: "DATABASE_NAME"
+          valueFrom:
+            secretKeyRef:
+              name: database
+              key: database
