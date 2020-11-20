@@ -25,7 +25,7 @@ CREATE TABLE users (
     city VARCHAR (255) NOT NULL,
     zip VARCHAR (255) NOT NULL,
     creditcard VARCHAR(255) NOT NULL,
-    ccv VARCHAR(255) NOT NULL
+    ccv VARCHAR(255) NOT NULL,
     exp VARCHAR(255) NOT NULL
 );
 
