@@ -1,0 +1,13 @@
+---
+apiVersion: consul.hashicorp.com/v1alpha1
+kind: ServiceIntentions
+metadata:
+  name: search-database
+spec:
+  destination:
+    name: database
+  sources:
+    - name: search
+      action: allow
+      permissions: []
+      description: allow access from search

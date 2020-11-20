@@ -1,3 +1,4 @@
+---
 # Secret that gives the application access to the database.
 apiVersion: v1
 kind: Secret
@@ -8,6 +9,13 @@ data:
   username: cm9vdA==
   password: cGxlYXNlX2NoYW5nZV9tZV9iYXJyeQ==
   database: cm9vdA==
+
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: search
+automountServiceAccountToken: true
 
 ---
 # Service to expose the search service
@@ -39,9 +47,14 @@ spec:
       app: search
   template:
     metadata:
+      annotations:
+        "consul.hashicorp.com/connect-inject": "true"
+        "consul.hashicorp.com/connect-service-port": "3000"
+        "consul.hashicorp.com/connect-service-upstreams": "database:5432"
       labels:
         app: search
     spec:
+      serviceAccountName: search
       containers:
       - name: search
         image: nicholasjackson/emojify-favorites:v0.1.0
