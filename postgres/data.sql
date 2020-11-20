@@ -6,7 +6,7 @@ CREATE TABLE branches (
     name VARCHAR (255) NOT NULL,
     street VARCHAR (255) NOT NULL,
     city VARCHAR (255) NOT NULL,
-    zip VARCHAR (255) NOT NULL,
+    zip VARCHAR (255) NOT NULL
 );
 
 INSERT INTO branches (name, street, city, zip) VALUES ('East Schulist', '5231 Port Corners land','East Schulist','28210');
