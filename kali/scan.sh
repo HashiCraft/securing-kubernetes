@@ -56,7 +56,7 @@ sleep 1
 
 echo ""
 echo ""
-echo -e "\e[5m\e[1m1\e[22m\e[5m vulnerability found:"
+echo -e "\e[1m1\e[22m vulnerability found:"
 sleep 0.5
 
 echo ""

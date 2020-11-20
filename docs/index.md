@@ -10,7 +10,7 @@ The environment is built on Kali Linux and contains most of the tools you will n
 You can start using it by exec-ing into the kali container.
 
 ```shell
-$ shipyard exec container.kali --bash
+$ shipyard exec container.kali -- bash
 
 ┌──(root💀kali)-[/]
 └─$
