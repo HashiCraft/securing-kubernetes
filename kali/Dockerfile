@@ -6,6 +6,9 @@ RUN apt update --fix-missing && \
     apt upgrade -y --fix-missing && \
     DEBIAN_FRONTEND=noninteractive apt install -y kali-tools-top10/kali-rolling dnsutils procps
 
+COPY scan.sh /usr/local/bin/scan
+RUN chmod +x /usr/local/bin/scan
+
 COPY entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
 
