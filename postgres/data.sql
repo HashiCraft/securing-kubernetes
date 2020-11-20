@@ -1,5 +1,22 @@
 set time zone 'UTC';
 create extension pgcrypto;
+
+CREATE TABLE branches (
+    id serial PRIMARY KEY,
+    name VARCHAR (255) NOT NULL,
+    street VARCHAR (255) NOT NULL,
+    city VARCHAR (255) NOT NULL,
+    zip VARCHAR (255) NOT NULL,
+);
+
+INSERT INTO branches (name, street, city, zip) VALUES ('East Schulist', '5231 Port Corners land','East Schulist','28210');
+INSERT INTO branches (name, street, city, zip) VALUES ('New Ankunding', '2032 Locks stad','New Ankunding','45206');
+INSERT INTO branches (name, street, city, zip) VALUES ('Dallasside', '87386 North Ways port','Dallasside','92191');
+INSERT INTO branches (name, street, city, zip) VALUES ('Danielton', '66469 South Square view','Danielton','68107');
+INSERT INTO branches (name, street, city, zip) VALUES ('Gulgowskiburgh', '6162 Rapid stad','Gulgowskiburgh','89964');
+INSERT INTO branches (name, street, city, zip) VALUES ('Port Berge', '39751 New Alley ville','Port Berge','75432');
+INSERT INTO branches (name, street, city, zip) VALUES ('Bartonview', '84354 Extensions ville','Bartonview','62283');
+
 CREATE TABLE users (
     id serial PRIMARY KEY,
     name VARCHAR (255) NOT NULL,
@@ -11,6 +28,7 @@ CREATE TABLE users (
     ccv VARCHAR(255) NOT NULL
     exp VARCHAR(255) NOT NULL
 );
+
 INSERT INTO users (name, email, street, city, zip, creditcard, ccv, exp) VALUES ('Margot Langosh', 'carolannearmstrong@hettinger.org', '5231 Port Corners land','East Schulist','28210','6062826300643616', '749', '02/23');
 INSERT INTO users (name, email, street, city, zip, creditcard, ccv, exp) VALUES ('Santiago Lebsack', 'mertiekoelpin@parker.com', '2032 Locks stad','New Ankunding','45206','2715172735355959', '291', '02/23');
 INSERT INTO users (name, email, street, city, zip, creditcard, ccv, exp) VALUES ('Darius Nitzsche', 'harmonyjaskolski@moore.io', '87386 North Ways port','Dallasside','92191','5089997969849900', '204', '12/30');
