@@ -1,7 +1,7 @@
 ---
 id: index
 title: Securing Kubernetes application transport and secrets with Vault and Consul
-sidebar_label: Introduction
+sidebar_label: Get started
 ---
 
 We have set up a hacking environment for you on your local machine.

