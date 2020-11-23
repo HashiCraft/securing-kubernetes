@@ -48,9 +48,19 @@ spec:
   template:
     metadata:
       annotations:
-        "consul.hashicorp.com/connect-inject": "true"
-        "consul.hashicorp.com/connect-service-port": "3000"
-        "consul.hashicorp.com/connect-service-upstreams": "database:5432"
+        consul.hashicorp.com/connect-inject: "true"
+        consul.hashicorp.com/connect-service-port: "3000"
+        vault.hashicorp.com/agent-inject: "true"
+        vault.hashicorp.com/role: "search"
+        vault.hashicorp.com/agent-inject-secret-config: "database/creds/db-search"
+        vault.hashicorp.com/agent-inject-template-config: |
+          {{ with secret "database/creds/db-search" -}}
+          export POSTGRES_USER="{{ .Data.username }}"
+          export POSTGRES_PASS="{{ .Data.password }}"
+          export POSTGRES_DB="root"
+          {{- end }}
+          env
+          npm start
       labels:
         app: search
     spec:
@@ -58,21 +68,6 @@ spec:
       containers:
       - name: search
         image: nicholasjackson/emojify-favorites:v0.1.0
+        command: ['sh', '/vault/secrets/config']
         ports:
         - containerPort: 3000
-        env:
-        - name: "DATABASE_USER"
-          valueFrom:
-            secretKeyRef:
-              name: database
-              key: username
-        - name: "DATABASE_PASSWORD"
-          valueFrom:
-            secretKeyRef:
-              name: database
-              key: password
-        - name: "DATABASE_NAME"
-          valueFrom:
-            secretKeyRef:
-              name: database
-              key: database
