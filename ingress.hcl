@@ -1,6 +1,5 @@
 k8s_ingress "consul-http" {
   cluster = "k8s_cluster.kubernetes"
-  depends_on = ["helm.consul"]
 
   network {
     name = "network.cloud"
@@ -18,8 +17,6 @@ k8s_ingress "consul-http" {
 k8s_ingress "vault-http" {
   cluster = "k8s_cluster.kubernetes"
   service  = "vault"
-
-  depends_on = ["helm.vault"]
   
   network {
     name = "network.cloud"
@@ -38,12 +35,13 @@ k8s_ingress "search-http" {
 
   network {
     name = "network.cloud"
+    aliases = ["search.megacorp.com"]
   }
 
   service  = "search"
 
   port {
-    local  = 9090
+    local  = 80
     remote = 9090
     host   = 9090
   }

@@ -41,7 +41,7 @@ spec:
       serviceAccountName: payments
       containers:
       - name: payments
-        image: nicholasjackson/fake-service:v0.9.0
+        image: nicholasjackson/emojify-favorites:v0.1.0
         ports:
         - containerPort: 9090
         env:

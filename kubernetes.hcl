@@ -13,26 +13,26 @@ k8s_cluster "kubernetes" {
   }
 }
 
-helm "consul" {
-  cluster = "k8s_cluster.kubernetes"
-
-  chart = "github.com/hashicorp/consul-helm"
-  values = "./helm/consul-values.yaml"
-
-  health_check {
-    timeout = "60s"
-    pods = ["app=consul", "component=server"]
-  }
-}
-
-helm "vault" {
-  cluster = "k8s_cluster.kubernetes"
-
-  chart = "github.com/hashicorp/vault-helm"
-  values = "./helm/vault-values.yaml"
-
-  health_check {
-    timeout = "120s"
-    pods = ["app.kubernetes.io/name=vault"]
-  }
-}
+#helm "consul" {
+#  cluster = "k8s_cluster.kubernetes"
+#
+#  chart = "github.com/hashicorp/consul-helm"
+#  values = "./helm/consul-values.yaml"
+#
+#  health_check {
+#    timeout = "60s"
+#    pods = ["app=consul", "component=server"]
+#  }
+#}
+#
+#helm "vault" {
+#  cluster = "k8s_cluster.kubernetes"
+#
+#  chart = "github.com/hashicorp/vault-helm"
+#  values = "./helm/vault-values.yaml"
+#
+#  health_check {
+#    timeout = "120s"
+#    pods = ["app.kubernetes.io/name=vault"]
+#  }
+#}

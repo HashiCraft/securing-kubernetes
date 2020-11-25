@@ -62,7 +62,9 @@ sleep 0.5
 echo ""
 echo -e "\e[39mJavascript"
 echo -e "\e[2m------------------------------------------------------------\e[22m"
-echo -e "* \e[39mDust.js - Remote code exploit"
+echo -e ""
+echo -e "* \e[39mhttp://search.megacorp.com\e[22m"
+echo -e "  \e[2mDust.js - Remote code exploit"
 echo -e "  \e[2mhttps://artsploit.blogspot.com/2016/08/pprce2.html\e[22m"
 echo ""
 show_cursor
