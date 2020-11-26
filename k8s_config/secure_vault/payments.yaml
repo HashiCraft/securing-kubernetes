@@ -6,6 +6,21 @@ metadata:
 automountServiceAccountToken: true
 
 ---
+# Service to expose the search service
+apiVersion: v1
+kind: Service
+metadata:
+  name: payments
+spec:
+  selector:
+    app: payments
+  ports:
+  - name: http
+    protocol: TCP
+    port: 9090
+    targetPort: 3000
+
+---
 # Payments service
 apiVersion: apps/v1
 kind: Deployment
@@ -20,6 +35,17 @@ spec:
       app: payments
   template:
     metadata:
+      annotations:
+        vault.hashicorp.com/agent-inject: "true"
+        vault.hashicorp.com/role: "payments"
+        vault.hashicorp.com/agent-inject-secret-config: "database/creds/db-payments"
+        vault.hashicorp.com/agent-inject-template-config: |
+          {{ with secret "database/creds/db-payments" -}}
+          export DATABASE_USER="{{ .Data.username }}"
+          export DATABASE_PASSWORD="{{ .Data.password }}"
+          export DATABASE_NAME="root"
+          {{- end }}
+          npm start
       labels:
         app: payments
     spec:
@@ -27,12 +53,6 @@ spec:
       containers:
       - name: payments
         image: nicholasjackson/emojify-favorites:v0.1.0
-        env:
-        - name: "LISTEN_ADDR"
-          value: "127.0.0.1:9090"
-        - name: "NAME"
-          value: "payments"
-        - name: "MESSAGE"
-          value: "Payment"
-        - name: "HTTP_CLIENT_KEEP_ALIVES"
-          value: "true"
+        command: ['sh', '/vault/secrets/config']
+        ports:
+        - containerPort: 3000

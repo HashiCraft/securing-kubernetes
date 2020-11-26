@@ -4,7 +4,9 @@ RUN echo "deb http://ftp2.nluug.nl/os/Linux/distr/kali kali-rolling main non-fre
 
 RUN apt update --fix-missing && \
     apt upgrade -y --fix-missing && \
-    DEBIAN_FRONTEND=noninteractive apt install -y kali-tools-top10/kali-rolling dnsutils procps
+    DEBIAN_FRONTEND=noninteractive apt install -y kali-tools-top10/kali-rolling dnsutils procps vim
+
+COPY .bashrc /root/.bashrc 
 
 COPY scan.sh /usr/local/bin/scan
 RUN chmod +x /usr/local/bin/scan

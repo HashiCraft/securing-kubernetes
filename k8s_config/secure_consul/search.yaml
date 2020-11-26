@@ -1,16 +1,4 @@
 ---
-# Secret that gives the application access to the database.
-apiVersion: v1
-kind: Secret
-metadata:
-  name: database
-type: Opaque
-data:
-  username: cm9vdA==
-  password: cGxlYXNlX2NoYW5nZV9tZV9iYXJyeQ==
-  database: cm9vdA==
-
----
 apiVersion: v1
 kind: ServiceAccount
 metadata:
@@ -55,11 +43,10 @@ spec:
         vault.hashicorp.com/agent-inject-secret-config: "database/creds/db-search"
         vault.hashicorp.com/agent-inject-template-config: |
           {{ with secret "database/creds/db-search" -}}
-          export POSTGRES_USER="{{ .Data.username }}"
-          export POSTGRES_PASS="{{ .Data.password }}"
-          export POSTGRES_DB="root"
+          export DATABASE_USER="{{ .Data.username }}"
+          export DATABASE_PASSWORD="{{ .Data.password }}"
+          export DATABASE_NAME="root"
           {{- end }}
-          env
           npm start
       labels:
         app: search
@@ -67,7 +54,8 @@ spec:
       serviceAccountName: search
       containers:
       - name: search
-        image: nicholasjackson/emojify-favorites:v0.1.0
+        image: nicholasjackson/emojify-favorites:v0.2.0
         command: ['sh', '/vault/secrets/config']
-        ports:
-        - containerPort: 3000
+        env:
+        - name: "BIND_ADDR"
+          value: "127.0.0.1"

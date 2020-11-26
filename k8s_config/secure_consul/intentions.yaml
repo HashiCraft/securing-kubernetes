@@ -2,7 +2,7 @@
 apiVersion: consul.hashicorp.com/v1alpha1
 kind: ServiceIntentions
 metadata:
-  name: search-database
+  name: database
 spec:
   destination:
     name: database
@@ -11,3 +11,7 @@ spec:
       action: allow
       permissions: []
       description: allow access from search
+    - name: payments
+      action: allow
+      permissions: []
+      description: allow access from payments
